@@ -154,7 +154,7 @@ def pick_test_function(func):
     elif func == "Hartmann":
         testfunc = Hartmann(negate=True)
     elif func == "Branin":
-        testfunc = Branin(negate=False)
+        testfunc = Branin(negate=True)
     elif func == "Rosenbrock":
         testfunc = Rosenbrock(dim=2, negate=True, bounds=[(-5.0, 5.0), (-5.0, 5.0)])
     return testfunc
