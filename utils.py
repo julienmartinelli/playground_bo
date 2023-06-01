@@ -33,7 +33,6 @@ def set_matplotlib_params():
             "axes.spines.top": False,
             "axes.spines.left": True,
             "axes.spines.bottom": True,
-            "axes.grid": True,
         }
     )
 
@@ -158,3 +157,9 @@ def pick_test_function(func):
     elif func == "Rosenbrock":
         testfunc = Rosenbrock(dim=2, negate=True, bounds=[(-5.0, 5.0), (-5.0, 5.0)])
     return testfunc
+
+
+def embed_test_function(testfunc, x):
+
+    lb, ub = torch.tensor(testfunc._bounds).T
+    return testfunc(lb + (ub - lb) * x)
