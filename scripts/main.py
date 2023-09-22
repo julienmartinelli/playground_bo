@@ -9,7 +9,7 @@ from botorch.models import SingleTaskGP
 from botorch.optim import optimize_acqf
 from gpytorch.mlls import ExactMarginalLogLikelihood
 
-from utils import (
+from playground_bo.utils import (
     build_combinations,
     parser_bo,
     pick_acqf,

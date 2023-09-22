@@ -8,7 +8,7 @@ from botorch.acquisition.analytic import ExpectedImprovement, UpperConfidenceBou
 from botorch.test_functions import Branin, Hartmann, Rosenbrock
 from gpytorch.kernels import MaternKernel, RBFKernel, ScaleKernel
 
-from test_functions import Zhou
+from playground_bo.test_functions import Zhou
 
 
 def set_matplotlib_params():

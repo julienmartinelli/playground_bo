@@ -12,4 +12,4 @@ NAME="test"
 
 mkdir -p $RESULTFOLDER
 echo -e "FUNCTIONS=$EXP\nKERNELS=$KERNELS\nACQFS=$ACQFS\nN_REPS=$N_REP\nN_INIT=$N_INIT\nBUDGET=$BUDGET\nSEED=$SEED" > "$RESULTFOLDER/config_$NAME.txt"
-python3 main.py -n $N_REP -ni $N_INIT -b $BUDGET -k $KERNELS -a $ACQFS -e $EXP -se $SEED -s $RESULTFOLDER
+python3 scripts/main.py -n $N_REP -ni $N_INIT -b $BUDGET -k $KERNELS -a $ACQFS -e $EXP -se $SEED -s $RESULTFOLDER
