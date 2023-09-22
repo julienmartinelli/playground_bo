@@ -37,7 +37,9 @@ def eval_model(combi, budget, savefolder):
     train_Y = problem(data["train_X"]).view(-1, 1)
     data["train_Y"] = train_Y + sigma * torch.randn(size=train_Y.shape)
 
-    gpr = SingleTaskGP(data["train_X"], data["train_Y"], covar_module=pick_kernel(ker, dim))
+    gpr = SingleTaskGP(
+        data["train_X"], data["train_Y"], covar_module=pick_kernel(ker, dim)
+    )
     mll = ExactMarginalLogLikelihood(gpr.likelihood, gpr)
     fit_gpytorch_model(mll, max_retries=10)
 
@@ -57,7 +59,9 @@ def eval_model(combi, budget, savefolder):
         data["train_X"] = torch.cat((data["train_X"], candidates))
         data["train_Y"] = torch.cat((data["train_Y"], y.view(-1, 1)))
         data["regrets"][b + 1] = problem.optimal_value - data["train_Y"].max()
-        gpr = SingleTaskGP(data["train_X"], data["train_Y"], covar_module=pick_kernel(ker, dim))
+        gpr = SingleTaskGP(
+            data["train_X"], data["train_Y"], covar_module=pick_kernel(ker, dim)
+        )
         mll = ExactMarginalLogLikelihood(gpr.likelihood, gpr)
         fit_gpytorch_model(mll, max_retries=10)
     torch.save(data, path)
@@ -68,7 +72,6 @@ def parallel_eval(combi, budget, savefolder, x):
 
 
 def main(N_REP, N_INIT, budget, kernels, acqfs, experiments, seed, savefolder):
-
     combi = build_combinations(N_REP, experiments, kernels, acqfs, N_INIT, seed)
     with mp.Pool() as p:
         p.map(

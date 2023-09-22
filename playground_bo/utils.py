@@ -12,7 +12,6 @@ from playground_bo.test_functions import Zhou
 
 
 def set_matplotlib_params():
-
     """Set matplotlib params."""
 
     mpl.rcParams.update(mpl.rcParamsDefault)
@@ -39,7 +38,6 @@ def set_matplotlib_params():
 
 
 def adapt_save_fig(fig, filename="test.pdf"):
-
     """Remove right and top spines, set bbox_inches and dpi."""
 
     for ax in fig.get_axes():
@@ -49,7 +47,6 @@ def adapt_save_fig(fig, filename="test.pdf"):
 
 
 def parser_bo():
-
     """
     Parser used to run the algorithm from an already known crn.
     - Output:
@@ -105,7 +102,6 @@ def parser_bo():
 
 
 def build_combinations(N_REP, experiments, kernels, acqfs, n_init, seed):
-
     """Construct the list of combination settings to run."""
 
     combi = []
@@ -115,7 +111,6 @@ def build_combinations(N_REP, experiments, kernels, acqfs, n_init, seed):
 
 
 def pick_acqf(acqf, data, gpr, bounds):
-
     "Instantiate the given acqf."
 
     if acqf == "UCB":
@@ -134,7 +129,6 @@ def pick_acqf(acqf, data, gpr, bounds):
 
 
 def pick_kernel(ker, dim):
-
     "Instantiate the given kernel."
 
     # ScaleKernel adds the amplitude hyperparameter
@@ -146,7 +140,6 @@ def pick_kernel(ker, dim):
 
 
 def pick_test_function(func):
-
     "Instantiate the given function to optimize."
 
     if func == "Zhou":

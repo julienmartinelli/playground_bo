@@ -8,7 +8,6 @@ from torch import Tensor
 
 
 class Zhou(SyntheticTestFunction):
-
     optimal_value = 2.002595246981888
 
     def __init__(
