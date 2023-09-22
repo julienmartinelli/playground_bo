@@ -1,5 +1,4 @@
 import argparse
-import itertools
 
 import matplotlib as mpl
 import torch
@@ -56,9 +55,6 @@ def parser_bo():
     parser = argparse.ArgumentParser(description="Command description.")
 
     parser.add_argument(
-        "-n", "--N_REP", help="int, number of reps for stds", type=int, default=1
-    )
-    parser.add_argument(
         "-ni", "--N_INIT", help="int, size of initial dataset", type=int, default=1
     )
     parser.add_argument(
@@ -76,38 +72,26 @@ def parser_bo():
     )
     parser.add_argument(
         "-k",
-        "--kernels",
-        nargs="*",
+        "--kernel",
         type=str,
-        default=["RBF"],
-        help="list of kernels to try.",
+        default="RBF",
+        help="kernel to use.",
     )
     parser.add_argument(
         "-a",
-        "--acqfs",
-        nargs="*",
+        "--acqf",
         type=str,
-        default=["MES"],
-        help="list of BO acquisition function to try.",
+        default="MES",
+        help="BO acquisition function to try.",
     )
     parser.add_argument(
         "-e",
-        "--experiments",
-        nargs="*",
+        "--experiment",
         type=str,
-        default=["Forrester"],
-        help="list of test functions to optimize.",
+        default="Zhou",
+        help="test function to optimize.",
     )
     return parser
-
-
-def build_combinations(N_REP, experiments, kernels, acqfs, n_init, seed):
-    """Construct the list of combination settings to run."""
-
-    combi = []
-    li = [experiments, kernels, acqfs, [n_init], [seed + n for n in range(N_REP)]]
-    combi.append(list(itertools.product(*li)))
-    return sum(combi, [])
 
 
 def pick_acqf(acqf, data, gpr, bounds):
