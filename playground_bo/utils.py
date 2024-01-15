@@ -1,5 +1,4 @@
 import argparse
-import itertools
 
 import matplotlib as mpl
 import torch
@@ -8,11 +7,10 @@ from botorch.acquisition.analytic import ExpectedImprovement, UpperConfidenceBou
 from botorch.test_functions import Branin, Hartmann, Rosenbrock
 from gpytorch.kernels import MaternKernel, RBFKernel, ScaleKernel
 
-from test_functions import Zhou
+from playground_bo.test_functions import Zhou
 
 
 def set_matplotlib_params():
-
     """Set matplotlib params."""
 
     mpl.rcParams.update(mpl.rcParamsDefault)
@@ -39,7 +37,6 @@ def set_matplotlib_params():
 
 
 def adapt_save_fig(fig, filename="test.pdf"):
-
     """Remove right and top spines, set bbox_inches and dpi."""
 
     for ax in fig.get_axes():
@@ -49,7 +46,6 @@ def adapt_save_fig(fig, filename="test.pdf"):
 
 
 def parser_bo():
-
     """
     Parser used to run the algorithm from an already known crn.
     - Output:
@@ -58,9 +54,6 @@ def parser_bo():
 
     parser = argparse.ArgumentParser(description="Command description.")
 
-    parser.add_argument(
-        "-n", "--N_REP", help="int, number of reps for stds", type=int, default=1
-    )
     parser.add_argument(
         "-ni", "--N_INIT", help="int, size of initial dataset", type=int, default=1
     )
@@ -79,43 +72,29 @@ def parser_bo():
     )
     parser.add_argument(
         "-k",
-        "--kernels",
-        nargs="*",
+        "--kernel",
         type=str,
-        default=["RBF"],
-        help="list of kernels to try.",
+        default="RBF",
+        help="kernel to use.",
     )
     parser.add_argument(
         "-a",
-        "--acqfs",
-        nargs="*",
+        "--acqf",
         type=str,
-        default=["MES"],
-        help="list of BO acquisition function to try.",
+        default="MES",
+        help="BO acquisition function to try.",
     )
     parser.add_argument(
         "-e",
-        "--experiments",
-        nargs="*",
+        "--experiment",
         type=str,
-        default=["Forrester"],
-        help="list of test functions to optimize.",
+        default="Zhou",
+        help="test function to optimize.",
     )
     return parser
 
 
-def build_combinations(N_REP, experiments, kernels, acqfs, n_init, seed):
-
-    """Construct the list of combination settings to run."""
-
-    combi = []
-    li = [experiments, kernels, acqfs, [n_init], [seed + n for n in range(N_REP)]]
-    combi.append(list(itertools.product(*li)))
-    return sum(combi, [])
-
-
 def pick_acqf(acqf, data, gpr, bounds):
-
     "Instantiate the given acqf."
 
     if acqf == "UCB":
@@ -134,7 +113,6 @@ def pick_acqf(acqf, data, gpr, bounds):
 
 
 def pick_kernel(ker, dim):
-
     "Instantiate the given kernel."
 
     # ScaleKernel adds the amplitude hyperparameter
@@ -146,7 +124,6 @@ def pick_kernel(ker, dim):
 
 
 def pick_test_function(func):
-
     "Instantiate the given function to optimize."
 
     if func == "Zhou":
